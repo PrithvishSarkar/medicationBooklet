@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.fancy-border {
+    border-image-source: linear-gradient(
+        to right, transparent, transparent, #6b7280, transparent, transparent
+    );
+    border-image-slice: 1;
+    border-image-repeat: stretch;
+}
+
+.logo-border {
+    border-image-source: linear-gradient(to right, transparent, #0c4a6e, transparent);
+    border-image-slice: 1;
+    border-image-repeat: stretch;
+}
+
+.button-transition {
+    transition-property: max-width;
+    transition-duration: 500ms;
+    transition-timing-function: linear;
+}
+
+.medication-details-border {
+    border-image-source: linear-gradient(to right, transparent, #6b7280, transparent);
+    border-image-slice: 1;
+    border-image-repeat: stretch;
+}
+
+.custom-placeholder::placeholder {
+    color: #bae6fd;
+}
+
+.medicine-list-card-para-background-image {
+    background-image: linear-gradient(to right, #881337, #4c1d95);
+    background-repeat: no-repeat;
+    background-clip: text;
+}
+
+.medicine-list-card-items-background-image {
+    background-image: linear-gradient(to right, #10b981, transparent);
+    background-repeat: no-repeat;
+}
