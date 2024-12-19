@@ -1,12 +1,16 @@
 import "../src/tailwind.css";
 import { useState } from "react";
 
-// Medicine Details
+// User is supposed to enter the medicine details using the form
+// userName Prop -> Shows the name of the user
+// updateMedicineCardDetails -> State Updates -> Updates Medicine Details Array (in App.jsx)
+// updateShowSubmissionModal -> Shows / Hides the successful submission Modal (State Update)
 function MedicineDetails({
   userName,
   updateMedicineCardDetails,
   updateShowSubmissionModal,
 }) {
+  // The Temporary Object contains the date of the Form Input
   const [temporarayObject, setTemporaryObject] = useState({
     name: "",
     type: "",
@@ -17,18 +21,28 @@ function MedicineDetails({
     endingDate: "",
     instructions: "",
   });
+
+  // This function is called when the user submits the form
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Displays the Successful Submission Modal
     setTimeout(() => {
       updateShowSubmissionModal(true);
     }, 500);
+
+    // Hides the Successful Submission Modal
     setTimeout(() => {
       updateShowSubmissionModal(false);
     }, 3500);
+
+    // Updates the Medicine Card Details Array (in App.jsx)
     updateMedicineCardDetails((previousArray) => [
       ...previousArray,
       temporarayObject,
     ]);
+
+    // Updates the Form values to look as it was initially
     setTemporaryObject({
       name: "",
       type: "",
@@ -40,6 +54,7 @@ function MedicineDetails({
       instructions: "",
     });
   };
+
   return (
     <form
       action="#"
@@ -56,12 +71,15 @@ function MedicineDetails({
       >
         Hello, {userName}!
       </p>
+
+      {/* Medicine Name Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Medicine Name
         </legend>
         <input
           type="text"
+          name="medicineName"
           required={true}
           placeholder="Amoxicillin"
           onChange={(e) =>
@@ -75,12 +93,15 @@ function MedicineDetails({
           bg-transparent outline-0 border-none custom-placeholder"
         />
       </fieldset>
+
+      {/* Medicine Type Select Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Medication Type
         </legend>
         <select
           required={true}
+          name="medicineType"
           onChange={(e) =>
             setTemporaryObject((previousObject) => ({
               ...previousObject,
@@ -90,22 +111,25 @@ function MedicineDetails({
           value={temporarayObject.type}
           className="min-w-full text-sky-500 text-lg bg-transparent outline-0 border-none"
         >
-          <option>--Select--</option>
-          <option>Tablet / Capsule</option>
-          <option>Syrup</option>
-          <option>Ointment</option>
-          <option>Inhaler</option>
-          <option>Injection</option>
-          <option>Spray</option>
-          <option>Drops</option>
+          <option value="none">--Select--</option>
+          <option value="tabletORcapsule">Tablet / Capsule</option>
+          <option value="syrup">Syrup</option>
+          <option value="ointment">Ointment</option>
+          <option value="inhaler">Inhaler</option>
+          <option value="injection">Injection</option>
+          <option value="spray">Spray</option>
+          <option value="drops">Drops</option>
         </select>
       </fieldset>
+
+      {/* Medicine Dosage Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Medicine Dosage
         </legend>
         <input
           type="text"
+          name="medicineDosage"
           placeholder="500mg"
           required={true}
           onChange={(e) =>
@@ -119,12 +143,15 @@ function MedicineDetails({
           bg-transparent outline-0 border-none custom-placeholder"
         />
       </fieldset>
+
+      {/* Medicine Frequency Select Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Medication Frequency
         </legend>
         <select
           required={true}
+          name="medicineFrequency"
           onChange={(e) =>
             setTemporaryObject((previousObject) => ({
               ...previousObject,
@@ -135,18 +162,21 @@ function MedicineDetails({
           className="min-w-full text-sky-500 text-lg 
         bg-transparent outline-0 border-none"
         >
-          <option>--Select--</option>
-          <option>Once a Day</option>
-          <option>Twice a Day</option>
-          <option>Thrice a Day</option>
+          <option value="none">--Select--</option>
+          <option value="once">Once a Day</option>
+          <option value="twice">Twice a Day</option>
+          <option value="thrice">Thrice a Day</option>
         </select>
       </fieldset>
+
+      {/* Medicine Time Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Medication Time
         </legend>
         <input
           type="time"
+          name="medicationTime"
           required={true}
           onChange={(e) =>
             setTemporaryObject((previousObject) => ({
@@ -158,12 +188,15 @@ function MedicineDetails({
           className="min-w-full text-sky-500 text-lg bg-transparent outline-0 border-none"
         />
       </fieldset>
+
+      {/* Medicine Starting Date Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Starting Date
         </legend>
         <input
           type="date"
+          name="medicationStartingDate"
           required={true}
           onChange={(e) =>
             setTemporaryObject((previousObject) => ({
@@ -175,12 +208,15 @@ function MedicineDetails({
           className="min-w-full text-sky-500 text-lg bg-transparent outline-0 border-none"
         />
       </fieldset>
+
+      {/* Medicine Ending Date Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Ending Date
         </legend>
         <input
           type="date"
+          name="medicationEndingDate"
           required={true}
           onChange={(e) =>
             setTemporaryObject((previousObject) => ({
@@ -192,12 +228,15 @@ function MedicineDetails({
           className="min-w-full text-sky-500 text-lg bg-transparent outline-0 border-none"
         />
       </fieldset>
+
+      {/* Medicine Instructions Input */}
       <fieldset className="border-2 border-solid border-sky-700 rounded-lg p-2 pt-0 my-2">
         <legend className="text-center text-mono text-sky-700 italic px-2">
           Instructions
         </legend>
         <textarea
           required={true}
+          name="medicationInstruction"
           onChange={(e) =>
             setTemporaryObject((previousObject) => ({
               ...previousObject,
@@ -209,6 +248,8 @@ function MedicineDetails({
         bg-transparent outline-0 border-none resize-y"
         ></textarea>
       </fieldset>
+
+      {/* Submit Button */}
       <button
         type="submit"
         className="border-none rounded-lg outline-0 bg-sky-700 font-sans 

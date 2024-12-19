@@ -1,30 +1,22 @@
 import "../src/tailwind.css";
 
-function MedicationCard({ date, medicineCardDetails }) {
+// This card contains all the medicine details and is displayed on Dashboard
+function MedicationCard({ medicineCardDetails }) {
   return (
-    <section
-      className={`p-2 rounded-lg border-solid border ${
-        date === "Today"
-          ? "bg-emerald-200 border-emerald-500"
-          : "bg-amber-200 border-amber-500"
-      }`}
-    >
+    <section className="p-2 rounded-lg border border-amber-500 bg-amber-200">
       <p
-        className={`my-2 text-center text-lg font-mono 
-          border-b-2 border-double ${
-            date === "Today" ? "border-emerald-500" : "border-amber-500"
-          }`}
+        className="my-2 text-center text-lg font-mono 
+        border-b-2 border-double border-amber-500"
       >
-        Medicine to be taken{" "}
-        <span className="font-extrabold italic text-indigo-800">{date}</span>
+        Your entire list of medicines
       </p>
-      <ul className="">
+
+      {/* This Unordered List contains all the details of all the medicines */}
+      <ul className="lg:flex lg:flex-row lg:flex-wrap lg:items-stretch lg:justify-start">
         {medicineCardDetails.map((medicineCardInfo, index) => (
           <li
             key={index}
-            className={`my-2 pl-2 border-l-4 ${
-              date === "Today" ? "border-l-emerald-500" : "border-l-amber-500"
-            }`}
+            className="my-2 pl-2 border-l-4 border-l-amber-500 lg:max-w-[50%]"
           >
             <p>
               Medicine Name:{" "}

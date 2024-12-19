@@ -1,7 +1,7 @@
 import "../src/tailwind.css";
 import { MedicineListCard } from "./MedicineListCard.jsx";
-import { useState, useEffect } from "react";
 
+// This Medicine List contains the details of all medicines tackled individually 
 function MedicineList({ userName, medicineCardDetails }) {
   return (
     <section className="p-2 m-2 md:ml-0 md:grow rounded-lg bg-gray-100">

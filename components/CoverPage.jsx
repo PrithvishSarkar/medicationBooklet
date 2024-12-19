@@ -1,7 +1,7 @@
 import "../src/tailwind.css";
 import coverPhoto from "/coverPhoto.png";
 
-// Initial Display
+// Initial Display - It will be displayed whenever the App mounts
 function CoverPage() {
   return (
     <section className="m-2 md:ml-0 md:grow rounded-lg bg-gray-100">

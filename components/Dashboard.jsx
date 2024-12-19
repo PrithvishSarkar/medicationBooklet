@@ -2,6 +2,7 @@ import "../src/tailwind.css";
 import profile from "/profile.png";
 import { MedicationCard } from "./MedicationCard.jsx";
 
+// The Dashboard shows the usename and all the medicine's details
 function Dashboard({ userName, medicineCardDetails }) {
   return (
     <section
@@ -13,14 +14,7 @@ function Dashboard({ userName, medicineCardDetails }) {
         <img src={profile} alt="your image" className="max-w-12 max-h-12" />
         <span className="font-extrabold font-sans text-3xl">{userName}</span>
       </p>
-      <section
-        data-type="medication-reminder-card"
-        className="mt-4 flex flex-col items-stretch justify-center gap-2 
-        lg:flex-row lg:items-start lg:justify-center"
-      >
-        <MedicationCard date="Today" medicineCardDetails={medicineCardDetails} />
-        <MedicationCard date="Tomorrow" medicineCardDetails={medicineCardDetails} />
-      </section>
+      <MedicationCard medicineCardDetails={medicineCardDetails} />
     </section>
   );
 }

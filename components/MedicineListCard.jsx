@@ -1,7 +1,13 @@
 import "../src/tailwind.css";
 import { useState, useEffect } from "react";
 
+// medicineCardInfo -> Object the contains details of each medicine
+// uniqueID -> INDEX of the List Item when rendered inside an Unordered List
+// This Medicine List Card is used in Medicine List
 function MedicineListCard({ medicineCardInfo, uniqueID }) {
+
+  // An Array is required to store how many days of medication is prescribed
+  // It is an Array of Objects where the Object is {dateString, isDone}
   const startDate = new Date(medicineCardInfo.startingDate);
   const endDate = new Date(medicineCardInfo.endingDate);
   const numberOfDays = (endDate - startDate) / 1000 / 3600 / 24;
@@ -13,6 +19,9 @@ function MedicineListCard({ medicineCardInfo, uniqueID }) {
     tempArray.push({ dateString: date.toDateString(), isDone: false });
   }
 
+  // This Array stores the dates from Starting Date to Ending Date along with a Checklist
+  // The initial value of this Array is the Array defined above (Temorary Array)
+  // The State Variable Array fetched data from Local Storage
   const [medicineChecklistArray, setMedicineChecklistArray] = useState(() => {
     const localStorageData = window.localStorage.getItem(
       `medicine-checklist-${uniqueID}`
@@ -20,6 +29,7 @@ function MedicineListCard({ medicineCardInfo, uniqueID }) {
     return localStorageData ? JSON.parse(localStorageData) : tempArray;
   });
 
+  // A Side Effect is run to store the updated Checklist Array in the Local Storage
   useEffect(() => {
     window.localStorage.setItem(
       `medicine-checklist-${uniqueID}`,
@@ -27,6 +37,8 @@ function MedicineListCard({ medicineCardInfo, uniqueID }) {
     );
   }, [medicineChecklistArray]);
 
+  // This function runs whenever the value of the Checklist is changed
+  // This function updates the Checklist State Variable Array
   const handleChecklistChange = (i) => {
     setMedicineChecklistArray((previousArray) =>
       previousArray.map((item, index) =>
@@ -46,6 +58,8 @@ function MedicineListCard({ medicineCardInfo, uniqueID }) {
       >
         Have I taken my medicine?
       </p>
+
+      {/* This Unordered List contains the Dates and the corresponding Checklist */}
       <ul className="mb-4">
         {medicineChecklistArray.map((item, index) => (
           <li
@@ -62,6 +76,8 @@ function MedicineListCard({ medicineCardInfo, uniqueID }) {
           </li>
         ))}
       </ul>
+
+      {/* This Unordered List contains the Medicine Details of individual medicines */}
       <ul className="pl-2 border-l-4 border-l-emerald-500">
         <li>
           Medicine Name:{" "}
