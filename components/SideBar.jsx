@@ -38,7 +38,7 @@ function SideBar({ updateShowUserGuideModal, updateShowDeleteDataModal }) {
       <button
         onClick={() =>
           window.open(
-            "https://github.com/prithvish774848474/medicationBooklet",
+            "https://github.com/prithvishsarkar/medicationBooklet/",
             "_blank"
           )
         }

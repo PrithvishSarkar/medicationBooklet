@@ -1,8 +1,17 @@
 import "../src/tailwind.css";
 import { MedicineListCard } from "./MedicineListCard.jsx";
 
-// This Medicine List contains the details of all medicines tackled individually 
-function MedicineList({ userName, medicineCardDetails }) {
+// This Medicine List contains the details of all medicines tackled individually
+function MedicineList({
+  userName,
+  medicineCardDetails,
+  updateMedicineCardDetails,
+}) {
+  const handleDelete = (i) => {
+    updateMedicineCardDetails((previousArray) =>
+      previousArray.filter((_, index) => index !== i)
+    );
+  };
   return (
     <section className="p-2 m-2 md:ml-0 md:grow rounded-lg bg-gray-100">
       <p className="font-bold font-serif text-base text-right p-2">
@@ -23,6 +32,7 @@ function MedicineList({ userName, medicineCardDetails }) {
             <MedicineListCard
               medicineCardInfo={medicineCardInfo}
               uniqueID={index}
+              onDelete={() => handleDelete(index)}
             />
           </li>
         ))}

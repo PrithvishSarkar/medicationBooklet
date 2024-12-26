@@ -1,11 +1,11 @@
 import "../src/tailwind.css";
 import { useState, useEffect } from "react";
+import { MdDelete } from "react-icons/md";
 
 // medicineCardInfo -> Object the contains details of each medicine
 // uniqueID -> INDEX of the List Item when rendered inside an Unordered List
 // This Medicine List Card is used in Medicine List
-function MedicineListCard({ medicineCardInfo, uniqueID }) {
-
+function MedicineListCard({ medicineCardInfo, uniqueID, onDelete }) {
   // An Array is required to store how many days of medication is prescribed
   // It is an Array of Objects where the Object is {dateString, isDone}
   const startDate = new Date(medicineCardInfo.startingDate);
@@ -50,22 +50,24 @@ function MedicineListCard({ medicineCardInfo, uniqueID }) {
   return (
     <section
       className="rounded-lg border border-emerald-500 bg-emerald-200 
-    min-h-full p-2"
+      min-h-full p-2"
     >
-      <p
-        className="text-xl text-center text-transparent font-serif font-semibold 
-      medicine-list-card-para-background-image"
-      >
-        Have I taken my medicine?
+      <p className="flex flex-row items-center justify-between text-xl">
+        <span className="font-serif font-semibold text-neutral-800">
+          Have I taken my medicine?
+        </span>
+        <button onClick={onDelete}>
+          <MdDelete color="#9f1239" />
+        </button>
       </p>
 
       {/* This Unordered List contains the Dates and the corresponding Checklist */}
       <ul className="mb-4">
         {medicineChecklistArray.map((item, index) => (
           <li
+            className={`flex flex-row items-center justify-between px-2 my-1 rounded-sm 
+            medicine-list-card-items-background-image text-sm font-semibold italic`}
             key={index}
-            className="flex flex-row items-center justify-between px-2 rounded-sm my-1
-          medicine-list-card-items-background-image text-sm font-semibold italic"
           >
             <span>{item.dateString}</span>
             <input
