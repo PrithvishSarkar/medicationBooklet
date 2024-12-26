@@ -116,13 +116,14 @@ export default function App() {
           <MedicineList
             userName={userName}
             medicineCardDetails={medicineCardDetails}
+            updateMedicineCardDetails={setMedicineCardDetails}
           />
         );
         break;
       default:
         setDisplayComponent(<CoverPage />);
     }
-  }, [componentIndex]);
+  }, [componentIndex, medicineCardDetails]);
 
   // The 'showInputModal' either shows or hides the Modal to intake username
   // The Modal is only shown if there is no username in the Local Storage
@@ -167,8 +168,10 @@ export default function App() {
           numberOfChecklist={medicineCardDetails.length}
         />
       )}
-      <section className="md:flex md:flex-row md:items-start md:justify-stretch
-      bg-white md:min-h-[100vh]">
+      <section
+        className="md:flex md:flex-row md:items-start md:justify-stretch
+      bg-white md:min-h-[100vh]"
+      >
         <section
           className="p-2 flex flex-col gap-2 items-stretch justify-stretch
             md:basis-[30%] md:shrink-0 md:grow-0
