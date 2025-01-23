@@ -1,81 +1,98 @@
 # Medication Booklet Application
 
-The Medication Booklet Application is a user-friendly tool designed to help users manage their medications effectively. With features like adding, viewing, and deleting medication details, it provides a simple way to keep track of your medicine intake.
+The Medication Booklet Application is a user-centric tool designed to assist users in managing their medications efficiently. It features intuitive options for adding, viewing, and removing medication details, enabling users to stay on top of their medical routines effortlessly.
 
 ## UI of the App
 
 - **Navigation Bar**
 
-  - Contains three buttons: Dashboard, Add Medicine, and Checklist
-  - The Cover Page is shown when the application mounts by default
-
-- **Permanent Layouts**
-
-  - The Navigation Bar and a Side Panel are permanent components of the app layout
+  - Contains four buttons: *Dashboard*, *Add Medicine*, *Checklist*, and a *Hamburger Icon* (visible only on smaller screens like mobile devices)
+  - By default, the application displays the Cover Page when it launches
 
 - **Side Panel**
+  
+  - Visible on larger screens and hidden by default on smaller screens
+  - It can be toggled on or off using the *Hamburger Icon*
+  - Includes four functional buttons:-
 
-  - Contains three buttons: Delete All Data, User Guide, and Learn More
-  - **Delete All Data**: Opens a modal asking for confirmation. Once confirmed, all application data is removed from Local Storage
-  - **User Guide**: Opens a modal that guides the user on how to use the application
-  - **Learn More**: Opens the GitHub repository for this application in a new tab
+    - **Delete All Data**: Opens a confirmation modal to clear all data stored in Local Storage
+    - **User Guide**: Opens a modal with a step-by-step guide on how to use the application
+    - **Learn More**: Redirects users to the application's GitHub repository in a new tab
+    - **Enable/Disable Notifications**:-
+
+      - *Default value*: Enable Notifications
+      - When clicked by the user, it requests *Notification Permission*, registers a *Service Worker*, and sets up *Push Notifications* to remind users about their medication schedule
+
+      - Once enabled, the button switches to *Disable Notifications*, allowing users to stop *Push Notifications* and unregister the *Service Worker*
 
 - **Responsive Design**
 
   - The application is highly responsive, ensuring usability across various devices
-  - **On larger screens**: Main content is displayed on the right side
-  - **On mobile devices**: Main content is displayed at bottom of the Navigation Bar
-  - The Layout is inspired Dashboard User Interface
+  - **On larger screens**: The *Navigation Bar* and *Side Panel* are always visible on left side and the main content displayed on the right side
+
+  - **On mobile devices**: The *Side Panel* is hidden by default and can be toggled using the *Hamburger Icon* and the main content displayed below the Navigation Bar
 
 - **Dashboard**
-  - The actual Dashboard section contains the user's medication details
-  - All the medicine details are grouped and displayed in an eye-catching manner
+  - Displays all medication details in an organized and visually appealing format
+  - Offers an at-a-glance overview of the user's medicine intake schedule
 
 ## Interactivity of the App
 
 - **Username Modal**
-  -When the application is used for the first time, a modal opens asking for the user's full name
-
-  - The username is stored in Local Storage and used throughout the application
-  - On subsequent visits, the username is fetched from Local Storage, and the modal is not displayed
+  - When accessed for the first time, a *Modal* prompts the user to enter their full name
+  - The username is stored in the *Browser's Local Storage* and is automatically retrieved during subsequent visits
 
 - **Navigation Buttons**
 
-  - When clicking on any of the Navigation Buttons, the corresponding section is displayed
-  - The Button UI (length and color) also changes
+  - Clicking any navigation button dynamically displays the corresponding section
+  - The buttons visually update (e.g., color and size) to indicate the selected state
 
 - **Add Medicine Section**
 
   - A form is provided where users can input details about their medications
-  - Clicking the "Submit" button adds the medicine details, which are then visible in the Dashboard and in the Checklist section
+  - Clicking *"Submit"* sends the data to the *Backend Server*
+  - The user also receives *Push Notifications* for the newly added medicine along with previous medicines, provided that the *Push Notifications* is turned on
 
 - **Checklist Section**
 
   - Displays detailed medication information accompanied by a sequence of checkboxes to track the medicine intake schedule
+
   - Checkboxes range from the *Starting Date* to the *Ending Date*, as provided in the *Add Medicine* section
-  - For example, if the Starting Date is 15th March and the Ending Date is 22nd March, the Checklist section generates cards displaying Date-Checkbox pairs for each date in this range along with the associated medication details
-  - The checklist data is stored in Local Storage, ensuring it is retained even after refreshing the application
 
-- **Delete a Medication**
+  - For example, if the *Starting Date is 15th March* and the *Ending Date is 22nd March*, the Checklist section generates cards displaying *Date - Checkbox* pairs for each date in this range along with the associated medication details
 
-  - In the *Checklist* section, users can click on the *Bin* icon associated with a specific medication to delete that medication's information
-  - Once deleted, the data is removed from both the UI and Local Storage
+  - The data is stored in Local Storage, ensuring persistence across sessions
+  - Users can delete a specific medication by clicking the *Bin Icon* which removes it from both the UI and Local Storage
+
+- **Push Notifications**
+
+  - The **Enable Notifications** button in the **Side Panel** allows users to receive reminders for their medication schedules
+
+  - Notifications are sent using a registered **Service Worker**
+  - The button toggles to **Disable Notifications** once enabled which allowing users to stop receiving reminders by unregistering the **Service Worker**
 
 - **Real-Time Updates**
-  - When you add new medication details in the "Add Medicine" section, the application automatically updates the Dashboard and Checklist sections to keep all records synchronized
+
+  - When you add new medication details in the **Add Medicine** section, the application automatically updates the **Dashboard** and **Checklist** sections to keep all records synchronized
+
   - The app seamlessly incorporates new data into existing schedules, saving users from manual adjustments and making the process simple and efficient
 
 ## Application in Real Life
 
-- It is particularly valuable for busy professionals and senior citizens who might forget their medications
+- This application is build for all and especially for:-
 
-- It can be used by caregivers to track medications for others or by individuals managing multiple prescriptions
+  - Busy professionals or senior citizens who may struggle to remember their medication
+  - Caregivers managing prescriptions for others
+  - Individuals with multiple medications requiring precise scheduling
 
 ## Technology Used
 
-- **ReactJS** which is built using Vite for faster development
-- **TailwindCSS** for styling and Mobile-First design approach
-- **Local Storage** is used to persist data which ensures that medication details and user preferences are retained even after refreshing or closing the application
+- **ReactJS**: Built with *Vite* for a faster development experience
+- **TailwindCSS**: Used for responsive and mobile-first design
+- **Local Storage**: Ensures data persistence, storing medication details and user preferences even after the app is closed
+
+- **Push Notifications**: Handles Push Notifications for medication reminder
+- **Backend Integration**: Stores medication data and facilitates seamless notifications
 
 ## Installation and Setup
 
@@ -86,35 +103,62 @@ git clone https://github.com/prithvishsarkar/medicationBooklet.git
 cd medicationBooklet
 ```
 
-- **Install Dependencies**: `npm install`
-- **Start the Development Server**: `npm run dev`
+- **Backend Setup**
+
+  - Navigate to Backend Repository: `cd Backend`
+  - Install Dependencies: `npm install`
+  - Start the Backend Development Server: `npm run dev`
+
+- **Frontend Setup**
+
+  - Use a new terminal for Frontend
+  - Navigate to Frontend Repository: `cd Frontend`
+  - Install Dependencies: `npm install`
+  - Start the Frontend Development Server: `npm run dev`
 
 ## How to use the App?
 
-- Launch the Application
-- Use the Navigation Bar to navigation throughout the App
-- **Dashboard**: View all your medicine details
-- **Add Medicine**: Fill in the medication details in the provided form and click "Submit" to add new prescribed medicine in the bucket
+- **Launch the Application**: Enter your full name when prompted (only on the first visit)
+- **Navigate via the App**: Use the *Navigation Bar* to switch between the *Dashboard*, *Add Medicine*, and *Checklist* sections
+
+- **Dashboard**: Lists all the medication details of the user
+- **Add Medicine**:
+
+  - Fill in the required details in the form and click "Submit" to save your medication schedule
+  - Data is sent to the backend, and notifications are enabled if permission is granted
+
 - **Checklist**:
-  - View and manage medication intake routines with checkboxes for each date in the range specified during medicine addition
-  - Use the *Bin* icon to delete specific medication information directly from the *Checklist* section
-- **Side Panel**: Use the Side Panel buttons for additional actions like deleting all data or accessing the user guide
+
+  - Track medication schedules with interactive checkboxes
+  - Remove a specific medication using the *Bin Icon*
+
+- **Side Panel**:
+
+  - Delete all data
+  - Access the user guide
+  - Enable or Disable Notifications for medication reminders
 
 ## Acknowledgements
 
 - ReactJS Documentation: [React](https://react.dev/learn)
 - TailwindCSS Documentation: [TailwindCSS](https://tailwindcss.com/docs/installation)
+- ExpressJS Documentation: [ExpressJS](https://expressjs.com/)
+- Push Notifications: [Push Notifications](https://medium.com/@a7ul/beginners-guide-to-web-push-notifications-using-service-workers-cb3474a17679)
 
 ## Application UI Instances
 
 ![IMG1](screenshots/img1.png)
-![IMG1](screenshots/img2.png)
-![IMG1](screenshots/img3.png)
-![IMG1](screenshots/img4.png)
-![IMG1](screenshots/img5.png)
-![IMG1](screenshots/img6.png)
-![IMG1](screenshots/img7.png)
-![IMG1](screenshots/img8.png)
-![IMG1](screenshots/img9.png)
-![IMG1](screenshots/img10.png)
-![IMG1](screenshots/img11.png)
+![IMG2](screenshots/img2.png)
+![IMG3](screenshots/img3.png)
+![IMG4](screenshots/img4.png)
+![IMG5](screenshots/img5.png)
+![IMG6](screenshots/img6.png)
+![IMG7](screenshots/img7.png)
+![IMG8](screenshots/img8.png)
+![IMG9](screenshots/img9.png)
+![IMG10](screenshots/img10.png)
+![IMG11](screenshots/img11.png)
+![IMG12](screenshots/img12.png)
+![IMG13](screenshots/img13.png)
+![IMG14](screenshots/img14.png)
+![IMG15](screenshots/img15.png)
