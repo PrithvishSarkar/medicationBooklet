@@ -65,6 +65,7 @@ const notificationScheduler = (subscription, array) => {
         const hours = date.getHours().toString().padStart(2, "0");
         const minutes = date.getMinutes().toString().padStart(2, "0");
         const timeNow = hours + ":" + minutes;
+        console.info(timeNow);
         for (let index = 0; index < array.length; index++) {
           if (
             timeNow === array[index].time &&
