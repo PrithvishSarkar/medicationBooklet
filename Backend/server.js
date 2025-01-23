@@ -56,44 +56,41 @@ const notificationScheduler = (subscription, array) => {
 
   // The 1st argument takes 5 space-seperated values
   // "minutes hours month-date month week-day" OR "0-59 0-23 1-31 JAN-DEC SUN-SAT"
-  currentCron = cron.schedule(
-    "* * * * *",
-    async () => {
-      // The 1st argument "* * * * *" means that the function will run every minute
-      try {
-        const date = new Date();
-        const hours = date.getHours().toString().padStart(2, "0");
-        const minutes = date.getMinutes().toString().padStart(2, "0");
-        const timeNow = hours + ":" + minutes;
-        console.info(timeNow);
-        for (let index = 0; index < array.length; index++) {
-          if (
-            timeNow === array[index].time &&
-            date >= new Date(array[index].startingDate) &&
-            date <= new Date(array[index].endingDate)
-          ) {
-            try {
-              console.info("Index is: ", index);
-              payload = JSON.stringify({
-                title: "Please take your medicines!",
-                body: array[index].name,
-              });
-              await webpush.sendNotification(subscription, payload);
-              console.info(`Push Notification sent for ${array[index].name}`);
-            } catch (err) {
-              console.error(
-                `Push Notification Error for ${array[index].name}`,
-                err
-              );
-            }
+  currentCron = cron.schedule("* * * * *", async () => {
+    // The 1st argument "* * * * *" means that the function will run every minute
+    try {
+      const date = new Date();
+      date.setTime(date.getTime() + 330 * 60 * 1000); // Only for production server
+      const hours = date.getHours().toString().padStart(2, "0");
+      const minutes = date.getMinutes().toString().padStart(2, "0");
+      const timeNow = hours + ":" + minutes;
+      console.info(timeNow);
+      for (let index = 0; index < array.length; index++) {
+        if (
+          timeNow === array[index].time &&
+          date >= new Date(array[index].startingDate) &&
+          date <= new Date(array[index].endingDate)
+        ) {
+          try {
+            console.info("Index is: ", index);
+            payload = JSON.stringify({
+              title: "Please take your medicines!",
+              body: array[index].name,
+            });
+            await webpush.sendNotification(subscription, payload);
+            console.info(`Push Notification sent for ${array[index].name}`);
+          } catch (err) {
+            console.error(
+              `Push Notification Error for ${array[index].name}`,
+              err
+            );
           }
         }
-      } catch (err) {
-        console.error("Scheduling Error: ", err);
       }
-    },
-    { timezone: "Asia/Kolkata" }
-  );
+    } catch (err) {
+      console.error("Scheduling Error: ", err);
+    }
+  });
 };
 
 app.listen(PORT, () =>
