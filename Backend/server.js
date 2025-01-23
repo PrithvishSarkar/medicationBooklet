@@ -28,7 +28,7 @@ app.post("/medicine-details", (req, res) => {
   console.info("Medicine Data is received in Backend!");
   if (subscriptionData) {
     notificationScheduler(subscriptionData, medicationData);
-    console.info("Notification Scheduler Function was called!");
+    console.info("Updated Medicine Details! \tNotification Scheduler Function was called!");
   }
   else console.info("Subscription Data is still null");
   res.json({ status: "Success", message: "Medicine Data is retrieved!" });
@@ -38,7 +38,7 @@ app.post("/user-subscription", (req, res) => {
   subscriptionData = req.body;
   if (subscriptionData) {
     notificationScheduler(subscriptionData, medicationData);
-    console.info("Notification Scheduler Function was called!");
+    console.info("Subscription Done! \tNotification Scheduler Function was called!");
     res.json({ status: "Success", message: "Notification Send from Server!" });
   } else console.info("User is not subscribed to the Push Service!!");
 });
@@ -58,7 +58,8 @@ const notificationScheduler = (subscription, array) => {
       const hours = date.getHours().toString().padStart(2, "0");
       const minutes = date.getMinutes().toString().padStart(2, "0");
       const timeNow = hours + ":" + minutes;
-      for (let index in array) {
+      console.info(timeNow);
+      for (let index = 0; index < array.length; index++) {
         if (
           timeNow === array[index].time &&
           date >= new Date(array[index].startingDate) &&
